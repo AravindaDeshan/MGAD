@@ -1,0 +1,540 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Project Details | My Portfolio</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary-color: #6c5ce7;
+            --secondary-color: #a29bfe;
+            --dark-color: #2d3436;
+            --light-color: #f5f6fa;
+            --accent-color: #fd79a8;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            min-height: 100vh;
+        }
+
+        /* Navigation */
+        .nav {
+            background: white;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            padding: 15px 0;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 20px;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--primary-color);
+            text-decoration: none;
+        }
+
+        .back-btn {
+            background: var(--primary-color);
+            color: white;
+            padding: 8px 15px;
+            border-radius: 5px;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+            transition: all 0.3s ease;
+        }
+
+        .back-btn:hover {
+            background: var(--dark-color);
+            transform: translateY(-2px);
+        }
+
+        /* Main container */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 40px 20px;
+        }
+
+        /* Project Detail View */
+        .project-detail {
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+            margin-top: 30px;
+        }
+
+        .project-header {
+            padding: 40px;
+            background: linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 100%);
+            color: white;
+            position: relative;
+        }
+
+        .project-header-content {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .project-title-large {
+            font-size: 2.5rem;
+            margin-bottom: 15px;
+        }
+
+        .project-subtitle {
+            font-size: 1.2rem;
+            opacity: 0.9;
+            margin-bottom: 20px;
+        }
+
+        .project-meta {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+            margin-bottom: 20px;
+        }
+
+        .meta-item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .project-image-main {
+            width: 100%;
+            max-height: 500px;
+            object-fit: cover;
+            border-radius: 10px;
+            margin-top: 20px;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+        }
+
+        .project-body {
+            padding: 40px;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .section {
+            margin-bottom: 40px;
+        }
+
+        .section-title {
+            font-size: 1.5rem;
+            margin-bottom: 20px;
+            color: var(--primary-color);
+            position: relative;
+            padding-bottom: 10px;
+        }
+
+        .section-title::after {
+            content: '';
+            position: absolute;
+            width: 60px;
+            height: 3px;
+            background: var(--accent-color);
+            bottom: 0;
+            left: 0;
+            border-radius: 3px;
+        }
+
+        .project-video {
+            width: 100%;
+            aspect-ratio: 16/9;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            margin: 20px 0;
+        }
+
+        .gallery {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 20px;
+            margin: 20px 0;
+        }
+
+        .gallery-item {
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease;
+        }
+
+        .gallery-item:hover {
+            transform: scale(1.05);
+        }
+
+        .gallery-image {
+            width: 100%;
+            height: auto;
+            object-fit: cover;
+        }
+
+        .code-snippet {
+            background: #2d3436;
+            color: #f5f6fa;
+            padding: 20px;
+            border-radius: 8px;
+            font-family: 'Courier New', Courier, monospace;
+            overflow-x: auto;
+            margin: 20px 0;
+            position: relative;
+        }
+
+        .code-snippet::before {
+            content: 'Code';
+            position: absolute;
+            top: 5px;
+            right: 10px;
+            color: #a29bfe;
+            font-size: 0.8rem;
+        }
+
+        .file-links {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin: 20px 0;
+        }
+
+        .file-link {
+            background: var(--light-color);
+            color: var(--dark-color);
+            padding: 10px 15px;
+            border-radius: 5px;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            transition: all 0.3s ease;
+        }
+
+        .file-link:hover {
+            background: var(--primary-color);
+            color: white;
+            transform: translateY(-2px);
+        }
+
+        .tech-stack {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin: 15px 0;
+        }
+
+        .tech-item {
+            background: var(--secondary-color);
+            color: white;
+            padding: 8px 15px;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            font-weight: 500;
+        }
+
+        /* Responsive styles */
+        @media (max-width: 768px) {
+            .project-header {
+                padding: 30px 20px;
+            }
+
+            .project-title-large {
+                font-size: 2rem;
+            }
+
+            .project-body {
+                padding: 30px 20px;
+            }
+
+            .gallery {
+                grid-template-columns: 1fr 1fr;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .gallery {
+                grid-template-columns: 1fr;
+            }
+
+            .project-meta {
+                flex-direction: column;
+                gap: 10px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="nav">
+        <div class="nav-container">
+            <a href="projects.html" class="logo">Projects 02</a>
+            <a href="index.html#projects" class="back-btn">
+                <i class="fas fa-arrow-left"></i> Back to Projects
+            </a>
+        </div>
+    </nav>
+
+    <!-- Project Detail View -->
+    <div class="container">
+        <div class="project-detail">
+            <div class="project-header">
+                <div class="project-header-content">
+                    <h1 class="project-title-large">Line Following Robort</h1>
+                    <h3 class="project-subtitle">Arduino with PID controller</h3>
+                    
+                    <div class="project-meta">
+                        <div class="meta-item">
+                            <i class="far fa-calendar-alt"></i>
+                            <span>may2025</span>
+                        </div>
+                       
+                        <div class="meta-item">
+                            <i class="fas fa-users"></i>
+                            <span>Group Project</span>
+                        </div>
+                    </div>
+                </div>
+                
+            </div>
+            
+            <div class="project-body">
+                <div class="section">
+                    <h3 class="section-title">Project Overview</h3>
+                    <p>A Line Following Robot is an autonomous robot that detects and follows a predefined path (usually a black line on a white surface or vice versa) using infrared (IR) sensors. This project implements a Proportional-Integral-Derivative (PID) Controller to improve the robot's accuracy, smoothness, and responsiveness while following the line.</p>
+                </div>
+                
+                <div class="section">
+                    <h3 class="section-title">Technology Stack</h3>
+                    <div class="tech-stack">
+                        <span class="tech-item">Arduino Uno </span>
+                        <span class="tech-item">TCRT5000 IR Sensors</span>
+                        <span class="tech-item">Motor Driver</span>
+                        <span class="tech-item">Actuators</span>
+                        <span class="tech-item">PID Control </span>
+                        <span class="tech-item">Microcontroller</span>
+                        
+                        
+                    </div>
+                </div>
+                
+                <div class="section">
+                    <h3 class="section-title">Key Features</h3>
+                    <ul>
+                        <li>PID-Based Precision Control</li>
+                        <li>Multi-Sensor Detection System</li>
+                        <li>Adaptive Motor Control</li>
+                        <li>Customizable & Scalable Design</li>
+                        <li>Real-Time Debugging & Tuning</li>
+                        <li>Practical Applications</li>
+                      
+                    </ul>
+                </div>
+                
+                
+                
+                <div class="section">
+                    <h3 class="section-title">Gallery</h3>
+                    <div class="gallery">
+                        <div class="gallery-item">
+                            <img src="images\arduino 1.JPG" alt="Chatbot Interface" class="gallery-image">
+                        </div>
+                        <div class="gallery-item">
+                            <img src="images\arduino4.JPG" alt="Architecture Diagram" class="gallery-image">
+                        </div>
+                        <div class="gallery-item">
+                            <img src="images\Arduino3.jpeg" alt="Code Structure" class="gallery-image">
+                        </div>
+                        <div class="gallery-item">
+                            <img src="images\Arduino2.jpeg" alt="Training Process" class="gallery-image">
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="section">
+                    <h3 class="section-title">Code Snippet</h3>
+                    <div class="code-snippet">
+                        <pre><code>
+                            
+// Motor pins 
+#define LEFT_MOTOR_ENA 9 
+#define LEFT_MOTOR_IN1 11 
+#define LEFT_MOTOR_IN2 12 
+#define RIGHT_MOTOR_ENB 10 
+#define RIGHT_MOTOR_IN3 8 
+#define RIGHT_MOTOR_IN4 13 
+// Sensor pins (LEFT and RIGHT only) 
+#define LEFT_SENSOR 3   // Previously SENSOR1 
+#define RIGHT_SENSOR 7  // Previously SENSOR5 
+// Speed settings 
+#define MAX_SPEED 80 
+#define BASE_SPEED 100 
+#define MIN_SPEED 30 
+// Line detection 
+#define BLACK_LINE 0 
+#define NO_LINE 1 
+// PID constants (may need retuning) 
+float Kp = 1.8; 
+float Ki = 0.01; 
+float Kd = 2.1; 
+// Variables 
+int leftSensor, rightSensor; 
+Serial.print(" R:"); 
+Serial.print(rightSensor); 
+Serial.print(" | PID: "); 
+Serial.print(pidValue); 
+Serial.print(" (P:"); 
+Serial.print(Kp * error); 
+Serial.print(" I:"); 
+Serial.print(Ki * integral); 
+Serial.print(" D:"); 
+Serial.print(Kd * derivative); 
+Serial.println(")"); 
+} 
+void calculatePosition() { 
+// Simplified position calculation for 2 sensors 
+if (leftSensor == BLACK_LINE && rightSensor == NO_LINE) { 
+lastPosition = -1000; // Far left 
+} else if (rightSensor == BLACK_LINE && leftSensor == NO_LINE) { 
+lastPosition = 1000;  // Far right 
+} else if (leftSensor == BLACK_LINE && rightSensor == BLACK_LINE) { 
+lastPosition = 0;     // Centered 
+} else { 
+// No line detected - maintain last position 
+} 
+} 
+void calculatePID() { 
+error = lastPosition; 
+integral += error; 
+integral = constrain(integral, -MAX_SUM_ERROR, MAX_SUM_ERROR); 
+derivative = error - lastError; 
+pidValue = (Kp * error) + (Ki * integral) + (Kd * derivative); 
+pidValue = constrain(pidValue, -MAX_PID_VALUE, MAX_PID_VALUE); 
+lastError = error; 
+} 
+void stopMotors() { 
+digitalWrite(LEFT_MOTOR_IN1, LOW); 
+digitalWrite(LEFT_MOTOR_IN2, LOW); 
+analogWrite(LEFT_MOTOR_ENA, 0); 
+digitalWrite(RIGHT_MOTOR_IN3, LOW); 
+digitalWrite(RIGHT_MOTOR_IN4, LOW); 
+analogWrite(RIGHT_MOTOR_ENB, 0); 
+} 
+void followLineWithPID() {
+int leftSpeed = BASE_SPEED - pidValue; 
+int rightSpeed = BASE_SPEED + pidValue; 
+leftSpeed = constrain(leftSpeed, MIN_SPEED, MAX_SPEED); 
+rightSpeed = constrain(rightSpeed, MIN_SPEED, MAX_SPEED); 
+setMotorSpeeds(leftSpeed, rightSpeed); 
+handleSpecialCases(); 
+} 
+void setMotorSpeeds(int leftSpeed, int rightSpeed) { 
+if (leftSpeed >= 0) { 
+digitalWrite(LEFT_MOTOR_IN1, HIGH); 
+digitalWrite(LEFT_MOTOR_IN2, LOW); 
+} else { 
+digitalWrite(LEFT_MOTOR_IN1, LOW); 
+digitalWrite(LEFT_MOTOR_IN2, HIGH); 
+leftSpeed = -leftSpeed; 
+} 
+if (rightSpeed >= 0) { 
+digitalWrite(RIGHT_MOTOR_IN3, HIGH); 
+digitalWrite(RIGHT_MOTOR_IN4, LOW); 
+} else { 
+digitalWrite(RIGHT_MOTOR_IN3, LOW); 
+digitalWrite(RIGHT_MOTOR_IN4, HIGH); 
+rightSpeed = -rightSpeed; 
+} 
+analogWrite(LEFT_MOTOR_ENA, leftSpeed); 
+analogWrite(RIGHT_MOTOR_ENB, rightSpeed); 
+} 
+void moveForward(int speed) { 
+digitalWrite(LEFT_MOTOR_IN1, HIGH); 
+digitalWrite(LEFT_MOTOR_IN2, LOW); 
+analogWrite(LEFT_MOTOR_ENA, speed); 
+digitalWrite(RIGHT_MOTOR_IN3, HIGH); 
+digitalWrite(RIGHT_MOTOR_IN4, LOW); 
+analogWrite(RIGHT_MOTOR_ENB, speed); 
+} 
+void handleSpecialCases() { 
+if (leftSensor == BLACK_LINE && rightSensor == BLACK_LINE) { 
+integral = 0; 
+moveForward(BASE_SPEED); 
+return; 
+} 
+if (leftSensor == NO_LINE && rightSensor == NO_LINE) { 
+if (error < 0) { 
+setMotorSpeeds(BASE_SPEED / 2, BASE_SPEED);  // Turn right slowly 
+} else { 
+setMotorSpeeds(BASE_SPEED, BASE_SPEED / 2);  // Turn left slowly 
+} 
+return; 
+} 
+} 
+// Keep existing motor control functions unchanged 
+// (setMotorSpeeds, moveForward, stopMotors)
+                        </code></pre>
+                    </div>
+                </div>
+                
+                
+                
+                
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // You could add JavaScript functionality here if needed
+        // For example, gallery lightbox or code copy functionality
+        
+        document.addEventListener('DOMContentLoaded', function() {
+            // Example: Add click event to gallery items for lightbox
+            const galleryItems = document.querySelectorAll('.gallery-item');
+            
+            galleryItems.forEach(item => {
+                item.addEventListener('click', function() {
+                    // This would open a lightbox in a real implementation
+                    alert('In a full implementation, this would open a lightbox with the larger image');
+                });
+            });
+            
+            // Example: Add copy functionality to code snippets
+            const codeSnippets = document.querySelectorAll('.code-snippet');
+            
+            codeSnippets.forEach(snippet => {
+                snippet.addEventListener('click', function() {
+                    const code = this.querySelector('code').innerText;
+                    navigator.clipboard.writeText(code)
+                        .then(() => {
+                            const originalText = this.querySelector('code').innerText;
+                            this.querySelector('code').innerText = 'Copied to clipboard!';
+                            setTimeout(() => {
+                                this.querySelector('code').innerText = originalText;
+                            }, 2000);
+                        });
+                });
+            });
+        });
+    </script>
+</body>
+</html>
